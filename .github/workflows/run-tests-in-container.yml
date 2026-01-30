@@ -65,6 +65,7 @@ jobs:
           -e ALLURE_TOKEN="${{ secrets.ALLURE_TOKEN }}" \
           --env-file /tmp/allure-env \
           ghcr.io/cheshi-mantu/py-allurectl:latest
+          sh -c 'printenv | grep ALLURE_'
 
   cleanup-allure:
     runs-on: ubuntu-latest
@@ -83,3 +84,4 @@ jobs:
           echo "${{ needs.setup-allure.outputs.allure-env }}" | base64 -d > /tmp/allure-env
           export $(cat /tmp/allure-env)
           allurectl job-run stop
+          printenv | grep ALLURE_
